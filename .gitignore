@@ -1,0 +1,5 @@
+.venv
+.idea
+log
+垃圾图片库
+garbage_classifier_best.pth
