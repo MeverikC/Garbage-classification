@@ -1,4 +1,12 @@
+# 垃圾分类模型
+
+## 介绍
+
+1. 使用python+pytorch+efficientnet_b3实现
+2. web服务使用flask
+
 ## build
+
 1. 使用最新的cuda12.6
     ```bash
     # 手动执行
@@ -12,7 +20,9 @@
     
     pip install scikit-learn timm flask
     ```
-2. 其余版本: 进入 [Pytorch官网](https://pytorch.org/) 后查看![img.png](static/img.png)
+2. 其余版本: 进入 [Pytorch官网](https://pytorch.org/) 后查看
+    ![img.png](static/img.png)
+    
     > ps: 官网提供命令为 `pip3` , 换成 `pip`
 
 
@@ -23,9 +33,14 @@
     >  - 垃圾图片库(位于项目根目录)
     >    - 分类文件名(例如: 危害垃圾_电池)
     >      - img_0.png/jpg/jpeg
+
 2. 清空 `class_images.json` (该文件内容为获取 垃圾如片库 内的全部子文件夹名称为训练的分类标签)
+
 3. 执行 `python train.py`即可进行训练, 训练结束会生成名为 `garbage_classifier_bast.pth` 的模型
-4. 模型使用: 
+
+
+## 已训练模型使用
+1. 示例代码: 
     ```python
     # 打开并预处理图像
     img = Image.open(image_path).convert('RGB')
@@ -47,7 +62,7 @@
             
     return {"success": True, "predictions": results}
     ```
-
+    
     此时results的结果为: 
     ```python
     [
@@ -57,4 +72,6 @@
     ]
     ```
 
-    
+2. 在 [rereleases](https://github.com/MeverikC/Garbage-classification/releases) 中下载 `.pth` 文件格式的模型放在项目根目录下
+3. 执行 `python app.py` 等待启动成功后访问 `127.0.0.1:5000` 
+   ![image-20250216190515546](static/image-20250216190515546.png)
