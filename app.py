@@ -85,7 +85,6 @@ def predict_image(image_path):
                 "class": class_names[top3_indices[i].item()],
                 "confidence": f"{top3_probs[i].item() * 100:.2f}%"
             })
-
         return {"success": True, "predictions": results}
 
     except Exception as e:
