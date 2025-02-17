@@ -7,46 +7,44 @@ from torch.utils.data import Subset
 from PIL import Image, ImageFile
 from timm.scheduler import CosineLRScheduler  # 需要安装pip install timm
 from sklearn.model_selection import train_test_split  # scikit-learn
+import matplotlib.pyplot as plt
 import os
-import logging
 import json
+import warnings
+from datetime import datetime
 from check_image import check_images
 
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True  # 允许加载截断的图像
+# 忽略 PIL 的 EXIF 警告
+warnings.filterwarnings("ignore", category=UserWarning, module="PIL.TiffImagePlugin")
 
-logging.basicConfig(
-    level=logging.DEBUG,
-    filename="log/aaa.log",
-    filemode="a",  # "a" 表示追加模式，"w" 表示覆盖模式
-    format="%(asctime)s - %(levelname)s - %(message)s"
-)
+print(f"当前使用的设备：{'GPU' if torch.cuda.is_available() else 'CPU'}")
+device_hardware = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-device_hardware = 'cuda' if torch.cuda.is_available() else 'CPU'
+
 # 硬件优化配置
 class Config:
     data_dir = "./垃圾图片库"  # 包含子目录的结构化数据集路径
     num_classes = len(os.listdir(data_dir))  # 自动获取类别数量（根据子文件夹数量）
     batch_size = 8  # 调整为适合8G显存的批次大小
     img_size = 224  # 根据显存情况可降为192
-    num_workers = 0  # 根据CPU核心数优化
+    num_workers = 4  # 根据CPU核心数优化
     lr = 2e-4  # 更保守的学习率
     epochs = 30
     device = torch.device(device_hardware)
-    save_path = "./garbage_classifier_best.pth"
+    save_path = "./garbage_classifier_best_EfficientNet-B4.pth"
     label_mapping_path = "./class_indices.json"  # 保存类别映射关系
 
 
-# 打印当前使用的设备
-print(f"当前使用的设备：{'GPU' if torch.cuda.is_available() else 'CPU'}")
-
 # 增强的数据预处理（适配细粒度分类）
 train_transform = transforms.Compose([
-    transforms.RandomResizedCrop(Config.img_size, scale=(0.6, 1.0)),
+    transforms.RandomResizedCrop(Config.img_size, scale=(0.5, 1.0)),  # 扩大裁剪范围
     transforms.RandomHorizontalFlip(),
-    transforms.RandomVerticalFlip(p=0.2),
-    transforms.ColorJitter(0.3, 0.3, 0.2),
-    transforms.RandomRotation(15),
+    transforms.RandomVerticalFlip(p=0.3),
+    transforms.ColorJitter(0.4, 0.4, 0.4),
+    transforms.RandomRotation(25),
+    transforms.RandomAffine(degrees=0, shear=10),  # 新增错切变换
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
@@ -130,10 +128,18 @@ val_loader = DataLoader(
 
 # 使用更轻量的模型（适合8G显存）
 def create_model():
-    model = models.efficientnet_b3(weights='IMAGENET1K_V1')  # 平衡速度和精度
+    """
+    模型选择:
+        弱: EfficientNet-B0  EfficientNet-B1 ==> 这些模型参数量更少，训练速度更快。||  EfficientNet-B3 || MobileNetV3-Small MobileNetV3-Large ==> 专为移动端设计，计算效率高。
+        强: EfficientNet-B4 ==> 在更大的数据集上表现更好。|| ResNet-50 ResNet-101 ConvNeXt ==> 经典的卷积神经网络架构，适合细粒度分类任务。 || Swin Transformer ==> 基于Transformer的现代架构，通常比传统CNN表现更好。
+    函数:
+        创建模型
+    :return:创建的模型
+    """
+    model = models.efficientnet_b4(weights='IMAGENET1K_V1')  # 平衡速度和精度
     in_features = model.classifier[1].in_features
     model.classifier = nn.Sequential(
-        nn.Dropout(p=0.3, inplace=True),
+        nn.Dropout(p=0.5, inplace=True),  # 提升Dropout比例
         nn.Linear(in_features, Config.num_classes)
     )
     return model
@@ -145,11 +151,11 @@ model = create_model().to(Config.device)
 scaler = torch.amp.GradScaler(device=Config.device)
 
 # 优化器和学习率调度
-optimizer = optim.AdamW(model.parameters(), lr=Config.lr, weight_decay=1e-4)
+optimizer = optim.AdamW(model.parameters(), lr=Config.lr, weight_decay=1e-3)  # 增强权重衰减
 scheduler = CosineLRScheduler(
     optimizer,
     t_initial=Config.epochs,
-    warmup_t=3,
+    warmup_t=5,  # 延长预热阶段
     warmup_lr_init=1e-6,
 )
 
@@ -176,7 +182,7 @@ class EarlyStopping:
             self.counter = 0
 
 
-early_stopper = EarlyStopping(patience=7, delta=0.001)
+early_stopper = EarlyStopping(patience=10, delta=0.005)
 
 
 # 训练循环
@@ -226,20 +232,28 @@ def validate(model, loader):
     return total_loss / len(loader.dataset), correct.double() / len(loader.dataset)
 
 
+def plotting_loss_curve(train_losses, val_losses):
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    plt.plot(train_losses, label='Train Loss')
+    plt.plot(val_losses, label='Validation Loss')
+    plt.legend()
+    plt.savefig(f'./training_curve_{timestamp}.png')
+
+
 # 主训练函数
 def main():
     best_acc = 0.0
+    train_losses = []
+    val_losses = []
 
     for epoch in range(Config.epochs):
         print(f'Epoch {epoch + 1}/{Config.epochs}')
 
         # 训练阶段
-        logging.info(f"start {epoch} train")
         train_loss, train_acc = train_epoch(model, train_loader, optimizer)
         print(f'Train Loss: {train_loss:.4f} | Acc: {train_acc:.4f}')
 
         # 验证阶段
-        logging.info("start verify")
         val_loss, val_acc = validate(model, val_loader)
         print(f'Val Loss: {val_loss:.4f} | Acc: {val_acc:.4f}')
 
@@ -262,6 +276,13 @@ def main():
                 'best_acc': best_acc
             }, Config.save_path)
             print(f'Saved new best model with acc: {best_acc:.4f}')
+
+        # 记录损失
+        train_losses.append(train_loss)
+        val_losses.append(val_loss)
+        # 绘制损失曲线（可选）
+        if epoch == Config.epochs - 1 or early_stopper.early_stop:
+            plotting_loss_curve(train_losses, val_losses)
 
     print(f'Training complete. Best val Acc: {best_acc:.4f}')
 

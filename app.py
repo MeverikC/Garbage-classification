@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 # 配置参数
 class WebConfig:
-    model_path = "./garbage_classifier_best.pth"
+    model_path = "./garbage_classifier_best_EfficientNet-B4.pth"
     label_mapping = "./class_indices.json"
     upload_folder = 'uploads'
     allowed_extensions = {'png', 'jpg', 'jpeg', 'gif'}
@@ -41,10 +41,10 @@ def load_model():
         class_to_idx = label_data['class_to_idx']
 
     # 创建模型（需要与训练时的结构一致）
-    model = models.efficientnet_b3(pretrained=False)
+    model = models.efficientnet_b4(pretrained=False)
     in_features = model.classifier[1].in_features
     model.classifier = nn.Sequential(
-        nn.Dropout(p=0.3, inplace=True),
+        nn.Dropout(p=0.5, inplace=True),
         nn.Linear(in_features, len(class_names))
     )
 

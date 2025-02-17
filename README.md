@@ -18,10 +18,10 @@
      
     pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126  ## 替换适合自己的版本
     
-    pip install scikit-learn timm flask
+    pip install scikit-learn timm flask matplotlib
     ```
 2. 其余版本: 进入 [Pytorch官网](https://pytorch.org/) 后查看
-    ![img.png](static/img.png)
+    ![img.png](./static/img.png)
     
     > ps: 官网提供命令为 `pip3` , 换成 `pip`
 
@@ -74,4 +74,4 @@
 
 2. 在 [rereleases](https://github.com/MeverikC/Garbage-classification/releases) 中下载 `.pth` 文件格式的模型放在项目根目录下
 3. 执行 `python app.py` 等待启动成功后访问 `127.0.0.1:5000` 
-   ![image-20250216190515546](static/image-20250216190515546.png)
+   ![image-20250216190515546](./static/image-20250216190515546.png)
