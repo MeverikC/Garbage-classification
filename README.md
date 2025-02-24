@@ -17,8 +17,14 @@
     python.exe -m pip install --upgrade pip
      
     pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126  ## 替换适合自己的版本
-    
-    pip install -r common.txt
+    ```
+   windows
+    ```bash
+    pip install -r win-requirements.txt
+    ```
+    unix
+    ```bash
+    pip install -r unix-requirements.txt
     ```
 2. 其余版本: 进入 [Pytorch官网](https://pytorch.org/) 后查看
     ![img.png](./static/img.png)
@@ -75,3 +81,12 @@
 2. 在 [rereleases](https://github.com/MeverikC/Garbage-classification/releases) 中下载 `.pth` 文件格式的模型放在项目根目录下
 3. 执行 `python app.py` 等待启动成功后访问 `127.0.0.1:5000` 
    ![image-20250216190515546](./static/image-20250216190515546.png)
+4. 不同于使用python+flask的运行方式, 使用WSGI服务启动程序, 优点是更加稳定, 若是访问量不大则使用什么方式运行没区别
+    - windows
+    ```bash
+    waitress-serve --host=0.0.0.0 --port=9005 --threads=3 app:app
+    ```
+   - unix
+    ```bash
+    gunicorn -w 4 -b 0.0.0.0:9005 --chdir /app --log-level debug app:app
+    ```
