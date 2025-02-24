@@ -6,13 +6,13 @@ WORKDIR /app
 # 复制项目文件
 COPY . /app
 
-RUN python.exe -m pip install --upgrade pip
+RUN python3.exe -m pip install --upgrade pip
 
 # 安装项目依赖
 RUN pip install -r unix-requirements.txt
 
 # 下载预训练模型（替换为实际发布 URL）
-RUN wget -O /app/garbage_classifier_best.pth \
+RUN wget -O /app/garbage_classifier_best_EfficientNet-B4.pth \
     https://github.com/MeverikC/Garbage-classification/releases/download/v2.0/garbage_classifier_best_EfficientNet-B4.pth
 
 # 暴露端口
