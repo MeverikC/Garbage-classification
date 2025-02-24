@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}用户信息: {{ username }}{% endblock %}
+
+{% block page_content %}
+<div>
+    <div class="container mt-5" style="margin-top: 25px;">
+        <h2 class="mb-4">用户使用信息</h2>
+        <div style="max-height: 500px; overflow-y: auto; margin-top: 25px;">
+            <table class="table table-sm table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>用户</th>
+                        <th>模型结果</th>
+                        <th>用户结果</th>
+                        <th>创建时间</th>
+                    </tr>
+                </thead>
+                <tbody id="userTableBody">
+                    {% for result in results %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ result.username }}</td>
+                            <td>
+                                <ol>
+                                    {% for res in result.model_results %}
+                                        <li>{{ res.class }}: {{ res.confidence }}</li>
+                                    {% endfor %}
+                                </ol>
+                            </td>
+                            <td>{{ result.correct_result }}</td>
+                            <td>{{ result.created_at }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}

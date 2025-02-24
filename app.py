@@ -1,13 +1,79 @@
 # app.py
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask_bootstrap import Bootstrap
 import torch
 import torch.nn as nn
 from torchvision import transforms, models
 from PIL import Image
 import json
 import os
+import module
+from datetime import datetime
+
 
 app = Flask(__name__)
+app.secret_key = 'supersecretkey'  # 设置密钥用于会话管理
+
+bootstrap = Bootstrap(app)
+# 配置 Flask-Login
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+# JSON 数据存储路径
+DATA_FILE = "data.json"
+now = datetime.now().strftime('%Y-%m-%d')
+
+
+# 加载 JSON 数据
+def load_data():
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, 'r') as f:
+            try:
+                return json.load(f)
+            except json.JSONDecodeError:
+                # 如果文件内容为空或格式错误，返回默认数据
+                return {"users": {}, "results": []}
+    return {"users": {}, "results": []}
+
+
+# 保存 JSON 数据
+def save_data(data):
+    with open(DATA_FILE, 'w') as f:
+        json.dump(data, f, indent=4)
+
+
+# Flask-Login 用户加载器
+@login_manager.user_loader
+def load_user(user_id):
+    user_data = module.USERS.get(user_id)
+    if user_data:
+        return module.User(user_id, user_data["password"], user_data["role"])
+    return None
+
+
+# 登录页面
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = module.User.get(username)
+        if user and user.password == password:
+            login_user(user)
+            return redirect(url_for('index'))
+        else:
+            flash("Invalid username or password")
+            return render_template('login.html')
+    return render_template('login.html')
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 
 # 配置参数
@@ -91,8 +157,26 @@ def predict_image(image_path):
         return {"success": False, "error": str(e)}
 
 
-# 路由定义
+# 主页
 @app.route('/', methods=['GET', 'POST'])
+@login_required
+def index():
+    if current_user.role == 'admin':
+        data = load_data()
+        user_stats = {user: len(results) for user, results in data["users"].items()}
+        total_correct = sum(1 for result in data["results"] if result["correct_result"])
+        total_results = len(data["results"])
+        accuracy = (total_correct / total_results * 100) if total_results > 0 else 0  # 计算准确率
+
+        # 模型生成总数与准确率
+        model_stats = {'total_results': total_results, 'success_num': total_correct}
+        return render_template('dashboard.html', user_stats=user_stats, model_stats=model_stats)
+    return redirect(url_for('upload_file'))
+
+
+# 路由定义
+@app.route('/upload', methods=['GET', 'POST'])
+@login_required
 def upload_file():
     if request.method == 'POST':
         # 检查是否有文件上传
@@ -124,6 +208,119 @@ def upload_file():
                 return jsonify(result), 500
 
     return render_template('upload.html')
+
+
+# 保存用户选择的结果
+@app.route('/save_result', methods=['POST'])
+@login_required
+def save_result():
+    data = request.json
+    username = current_user.id
+    model_results = data.get("model_results")
+    correct_result = data.get("correct_result")
+
+    saved_data = load_data()
+    saved_data["results"].append({
+        "username": username,
+        "model_results": model_results,
+        "correct_result": correct_result,
+        "created_at": now,
+    })
+    if username not in saved_data["users"]:
+        saved_data["users"][username] = []
+
+    saved_data["users"][username].append({
+        "username": username,
+        "model_results": model_results,
+        "correct_result": correct_result,
+        "created_at": now,
+    })
+    save_data(saved_data)
+    flash("success")
+    return redirect(url_for('upload_file'))
+
+
+# 管理用户页面
+@app.route('/admin/users', methods=['GET'])
+@login_required
+def manage_users():
+    if current_user.role != 'admin':
+        return redirect(url_for('index'))
+    return render_template('manage_users.html', users=module.USERS)
+
+
+@app.route('/add-users', methods=['POST'])
+@login_required
+def add_user():
+    if current_user.role != 'admin':
+        return redirect(url_for('index'))
+    data = request.json
+    username = data.get('username')
+    password = data.get('password')
+    role = data.get('role')
+    result = module.User.add_user(username, password, role)
+    if result:
+        flash('用户添加成功')
+    else:
+        flash('该用户已存在')
+
+    return redirect(url_for('manage_users'))
+
+
+@app.route('/edit-users', methods=['POST'])
+@login_required
+def edit_user():
+    if current_user.role != 'admin':
+        return redirect(url_for('index'))
+    data = request.json
+    edit_username = data.get('editUsername')
+    username = data.get('username')
+    password = data.get('password')
+    role = data.get('role')
+    result = module.User.edit_user(edit_username, username, password, role)
+    if result:
+        flash('编辑成功')
+    else:
+        flash('编辑失败')
+
+    return redirect(url_for('manage_users'))
+
+
+@app.route('/delete-users', methods=['POST'])
+@login_required
+def delete_user():
+    if current_user.role != 'admin':
+        return redirect(url_for('index'))
+    data = request.json
+    username = data.get('username')
+    result = module.User.delete_user(username)
+    if result:
+        flash('删除成功')
+    else:
+        flash('删除失败')
+
+    return redirect(url_for('manage_users'))
+
+
+# 用户页面
+@app.route('/user/<username>')
+@login_required
+def user_profile(username):
+    if current_user.role != 'admin' and current_user.id != username:
+        flash("You do not have permission to view this page.")
+        return redirect(url_for('index'))
+
+    # 加载数据
+    data = load_data()
+    user_results = data["users"].get(username, [])
+
+    # 统计信息
+    total_uploads = len(user_results)
+    correct_results = sum(1 for result in user_results if result["correct_result"])
+    accuracy = (correct_results / total_uploads * 100) if total_uploads > 0 else 0
+
+    return render_template('user_profile.html', username=username, results=user_results, total_uploads=total_uploads,
+                           accuracy=accuracy)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,458 @@
+{
+    "users": {
+        "admin": [
+            {
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": ""
+            },
+            {
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u8ba1\u7b97\u5668",
+                        "confidence": "50.51%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u53c9\u5b50",
+                        "confidence": "32.78%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u63d2\u7ebf\u677f",
+                        "confidence": "10.87%"
+                    }
+                ],
+                "correct_result": ""
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            },
+            {
+                "username": "admin",
+                "model_results": [
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                        "confidence": "80.53%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                        "confidence": "8.09%"
+                    },
+                    {
+                        "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                        "confidence": "6.99%"
+                    }
+                ],
+                "correct_result": "",
+                "created_at": "2025-02-24"
+            }
+        ]
+    },
+    "results": [
+        {
+            "username": "admin",
+            "model_results": [
+                {
+                    "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                    "confidence": "80.53%"
+                },
+                {
+                    "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                    "confidence": "8.09%"
+                },
+                {
+                    "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                    "confidence": "6.99%"
+                }
+            ],
+            "correct_result": ""
+        },
+        {
+            "username": "admin",
+            "model_results": [
+                {
+                    "class": "\u53ef\u56de\u6536\u7269_\u8ba1\u7b97\u5668",
+                    "confidence": "50.51%"
+                },
+                {
+                    "class": "\u53ef\u56de\u6536\u7269_\u53c9\u5b50",
+                    "confidence": "32.78%"
+                },
+                {
+                    "class": "\u53ef\u56de\u6536\u7269_\u63d2\u7ebf\u677f",
+                    "confidence": "10.87%"
+                }
+            ],
+            "correct_result": ""
+        },
+        {
+            "username": "admin",
+            "model_results": [
+                {
+                    "class": "\u53ef\u56de\u6536\u7269_\u6728\u5236\u73a9\u5177",
+                    "confidence": "80.53%"
+                },
+                {
+                    "class": "\u53ef\u56de\u6536\u7269_\u7535\u8def\u677f",
+                    "confidence": "8.09%"
+                },
+                {
+                    "class": "\u53ef\u56de\u6536\u7269_\u949f\u8868",
+                    "confidence": "6.99%"
+                }
+            ],
+            "correct_result": "",
+            "created_at": "2025-02-24"
+        }
+    ]
+}

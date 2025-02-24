@@ -18,7 +18,7 @@
      
     pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126  ## 替换适合自己的版本
     
-    pip install scikit-learn timm flask matplotlib
+    pip install -r common.txt
     ```
 2. 其余版本: 进入 [Pytorch官网](https://pytorch.org/) 后查看
     ![img.png](./static/img.png)

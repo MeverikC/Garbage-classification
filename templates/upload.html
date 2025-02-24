@@ -1,24 +1,68 @@
 <!-- templates/upload.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>垃圾分类识别</title>
-    <style>
-        body { max-width: 800px; margin: 20px auto; padding: 20px; }
-        .upload-box { border: 2px dashed #ccc; padding: 20px; text-align: center; }
-        .predictions { margin-top: 20px; }
-        .pred-item { padding: 10px; margin: 5px; background: #f5f5f5; }
-    </style>
-</head>
-<body>
-    <h1>垃圾分类识别系统</h1>
+{% extends "base.html" %}
+
+{% block title %}上传图片{% endblock %}
+
+{% block page_content %}
     <div class="upload-box">
-        <h2>上传垃圾图片</h2>
-        <form method="post" enctype="multipart/form-data">
-            <input type="file" name="file" accept="image/*" required>
-            <br><br>
-            <input type="submit" value="开始识别">
+        <h3>上传图片</h3>
+        <form method="post" enctype="multipart/form-data" class="form-custom">
+            <input style="display: none;" type="file" name="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept="image/*">
+            <br>
+            <div id="preview" class="mt-3" >
+                <img style="width: 100px;" src="{{ url_for("static", filename="default_pic.png") }}" alt="请选择图片"/>
+            </div>
+            <br>
+            <div class="text-center">
+                <button type="submit" id="submit" class="btn btn-primary">开始识别</button>
+            </div>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"></script>
+    <script>
+        // 获取 DOM 元素
+        const fileInput = document.getElementById('inputGroupFile04');
+        const previewContainer = document.getElementById('preview');
+
+        // 当点击预览区域时，触发文件选择框
+        previewContainer.addEventListener('click', function () {
+            fileInput.click(); // 触发文件选择框
+        });
+
+        // 文件选择后的处理逻辑
+        document.getElementById('inputGroupFile04').addEventListener('change', function (event) {
+          const file = event.target.files[0]; // 获取上传的文件
+          const previewContainer = document.getElementById('preview');
+
+          // 清空之前的预览内容
+          previewContainer.innerHTML = '';
+
+          if (file && file.type.startsWith('image/')) {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file); // 创建图片的临时 URL
+            img.style.maxWidth = '100%'; // 设置图片的最大宽度
+            img.classList.add('img-fluid'); // 使用 Bootstrap 的响应式图片类
+
+            // 将图片添加到预览容器中
+            previewContainer.appendChild(img);
+
+            // 初始化 Viewer.js
+            new Viewer(img, {
+              inline: false, // 不以内联模式显示
+              button: true,  // 显示关闭按钮
+              navbar: false, // 隐藏导航栏
+              title: false,  // 隐藏标题
+              toolbar: false, // 显示工具栏
+            });
+          } else {
+            // 如果没有选择有效的图片文件，显示提示文字
+            previewContainer.textContent = '点击此处选择图片';
+            alert('请上传有效的图片文件！');
+          }
+        });
+  </script>
+{% endblock %}

@@ -1,0 +1,145 @@
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .container-body {
+            /*width: 50%; !* 左右边距各占50% *!*/
+            /*max-width: 500px; !* 可以根据实际情况调整最大宽度 *!*/
+            /*margin-top: 10vh; !* 顶部占20% *!*/
+        }
+
+        #submit{
+            margin-top: 35px;
+        }
+
+        #logout-btn{
+            margin-top: 25px;
+        }
+
+        .form-custom{
+            width: 600px;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2{
+            text-align: center;
+        }
+
+        h3{
+            text-align: center;
+        }
+
+        #extra_fields {
+            width: 100%; /* 确保宽度与父容器一致 */
+            margin-top: 15px; /* 添加一些间距，使其与上方的 .form-group 分开 */
+        }
+
+        .start-date{
+            padding-left: 0;
+        }
+        .end-date{
+            padding-right: 0;
+        }
+
+        /* 添加自定义样式 */
+        .navbar-inverse {
+            background-color: #fff; /* 背景颜色改为白色 */
+            border-color: transparent; /* 可选：移除边框颜色 */
+        }
+
+        .navbar-inverse .navbar-brand,
+        .navbar-inverse .navbar-nav > li > a {
+            color: #000; /* 文字颜色改为黑色 */
+            font-weight: bold; /* 文字加粗 */
+            text-decoration: none; /* 移除下划线 */
+        }
+
+        .navbar-inverse .navbar-brand:hover{
+            background-color: transparent;
+            color: #000; /* 禁用文字颜色变化 */
+        }
+
+        /* 禁用 hover 效果 */
+        .navbar-inverse .navbar-nav > li > a:hover {
+            background-color: transparent; /* 禁用背景色变化 */
+            color: #000; /* 禁用文字颜色变化 */
+        }
+
+        /* 鼠标悬停时的下划线动画 */
+        .navbar-inverse .navbar-nav > li > a {
+            position: relative; /* 用于定位伪元素 */
+            transition: all 0.3s ease; /* 平滑过渡效果 */
+        }
+
+        .navbar-inverse .navbar-nav > li > a::after {
+            content: ''; /* 伪元素内容 */
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 2px; /* 下划线高度 */
+            background-color: #007bff; /* 下划线颜色（蓝色） */
+            opacity: 0; /* 默认隐藏 */
+            transition: opacity 0.3s ease; /* 平滑过渡效果 */
+        }
+
+        .navbar-inverse .navbar-nav > li > a:hover::after {
+            opacity: 1; /* 悬停时显示下划线 */
+        }
+
+        /* 排除 navbar-header 的品牌名称 */
+        .navbar-inverse .navbar-brand {
+            font-weight: bold; /* 保持加粗 */
+            color: #000; /* 保持黑色 */
+        }
+
+        .navbar-inverse .navbar-toggle {
+            border-color: #ccc; /* 可选：调整汉堡菜单的边框颜色 */
+        }
+
+        .navbar-inverse .navbar-toggle .icon-bar {
+            background-color: #000; /* 可选：调整汉堡菜单的条的颜色 */
+        }
+
+        .navbar-inverse .navbar-collapse {
+            border-color: transparent; /* 可选：移除折叠菜单的边框颜色 */
+        }
+        #div-password{
+            margin-top: 20px;
+        }
+        /* 自定义样式：使图片在预览容器中居中 */
+        #preview {
+          display: flex;
+          justify-content: center; /* 水平居中 */
+          align-items: center;    /* 垂直居中 */
+          min-height: 200px;       /* 设置最小高度以确保容器可见 */
+          background-color: #ebf1f6; /* 背景色 */
+        }
+        #preview img {
+          max-width: 100%;         /* 图片宽度自适应 */
+          max-height: 400px;       /* 限制最大高度 */
+          object-fit: contain;     /* 确保图片比例不失真 */
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            background-color: #7bd2ec; /* 确保表头背景色不透明 */
+            z-index: 1;
+        }
+
+        .navbar-inverse .navbar-nav > .active > a {
+            color: #4e7fc7 !important; /* 将文字颜色改为红色 */
+            background-color: #ffffff !important;
+        }
